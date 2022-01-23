@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Landing from './components/Landing'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import "bootstrap/dist/css/bootstrap.min.css"
+
 
 Vue.use(VueRouter)
 const routes = [
