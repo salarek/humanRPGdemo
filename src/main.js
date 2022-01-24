@@ -5,8 +5,11 @@ import Landing from './components/Landing'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import "bootstrap/dist/css/bootstrap.min.css"
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.use(VueRouter)
 const routes = [
     {path: '/', component: Landing},

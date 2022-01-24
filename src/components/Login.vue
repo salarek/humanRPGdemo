@@ -114,7 +114,7 @@ export default {
   justify-content: center;
 }
 .header-bar {
-  background-color: $secondary;
+  background-color: rgb(59, 175, 113);
   width: 100%;
   height: 10vh;
   display: flex;
