@@ -1,8 +1,6 @@
 <template>
   <div class="landing">
-    <div :style="{ width: sidebarWidth }" class="sidebar">
-      <div>Witaj! {{ name }}</div>
-    </div>
+    <div :style="{ width: sidebarWidth }" class="sidebar">dupa</div>
     <div class="content">
       <header class="header-bar">
         <button
@@ -16,6 +14,9 @@
             />
           </svg>
         </button>
+        <div style="height: 100%; font-size: 20px; padding: 15px">
+          Witaj! {{ name }}
+        </div>
         <button
           style="
             background-color: transparent;
@@ -35,14 +36,18 @@
         </button>
         <!-- <div style="padding: 12px" class="bg-primary text-white">Human RPG</div> -->
       </header>
-      <div class="main-view">Twoje osiągnięcia</div>
+      <div class="main-view">
+        <achievments :username="name" :level="level" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Achievments from "./Achievments.vue";
 export default {
+  components: { Achievments },
   name: "landing",
   data() {
     return {
@@ -50,7 +55,18 @@ export default {
       showSideBar: true,
       name: "",
       email: "",
+      level: 0,
+      processlevel: 0,
+      categories: "",
+      items: "",
+      activity: 0,
     };
+  },
+  watch: {
+    sidebarWidth: function () {
+      console.log(" XDDDDD");
+      if (window.innerWidth < window.innerHeight) this.sidebarWidth = "100px";
+    },
   },
   methods: {
     switchSidebar() {
@@ -80,6 +96,11 @@ export default {
         console.log(res);
         this.name = res.data.user.name;
         this.email = res.data.user.email;
+        this.level = res.data.user.level;
+        this.processlevel = res.data.user.processlevel;
+        this.categories = res.data.user.categories;
+        this.items = res.data.user.items;
+        this.activity = res.data.user.activity;
       });
   },
 };
@@ -122,6 +143,7 @@ export default {
 }
 .sidebar {
   // background-color: rgb(0, 26, 255);
+  color: white;
   font-size: 1.3rem;
   background-color: $secondary;
   padding: 10px;

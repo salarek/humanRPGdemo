@@ -8,6 +8,11 @@ const userSchema = new Schema({
     type: String
   },
   password: String,
+  level: Number,
+  processlevel: Number,
+  categories: String,
+  items: String,
+  activity: Number,
 });
 const User = mongoose.model("User", userSchema);
 module.exports = User;

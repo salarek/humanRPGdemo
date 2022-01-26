@@ -21,6 +21,11 @@ app.post("/signup", (req, res) => {
     email: req.body.email,
     name: req.body.name,
     password: bcrypt.hashSync(req.body.password, 10),
+    level:0,
+    processlevel: 0,
+    categories: '',
+    items: '',
+    activity: 0,
   });
   newUser.save((err) => {
     if (err) {
@@ -78,7 +83,13 @@ app.get("/user", (req, res) => {
         title: 'user grabbed',
         user:{
           email: user.email,
-          name: user.name
+          name: user.name,
+          level: user.level,
+          processlevel: user.processlevel,
+          categories: user.categories,
+          items: user.items,
+          activity: user.activity,
+
         }
       })
     })
