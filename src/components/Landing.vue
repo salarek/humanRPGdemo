@@ -1,5 +1,5 @@
 <template>
-  <div class="landing">
+  <div id="landing" class="landing">
     <div :style="{ width: sidebarWidth }" class="sidebar">dupa</div>
     <div class="content">
       <header class="header-bar">
@@ -60,15 +60,26 @@ export default {
       categories: "",
       items: "",
       activity: 0,
+      windowWidth: window.innerWidth,
     };
   },
   watch: {
-    sidebarWidth: function () {
-      console.log(" XDDDDD");
-      if (window.innerWidth < window.innerHeight) this.sidebarWidth = "100px";
+    windowWidth: function () {
+      console.log("XDDDDD");
+      console.log(window.innerWidth);
+      if (window.innerWidth < window.innerHeight) {
+        this.sidebarWidth = "100px";
+      } else {
+        this.sidebarWidth = "300px";
+      }
     },
   },
   methods: {
+    resizeWindow() {
+      let itm = document.getElementById("landing")?.getBoundingClientRect();
+      this.windowWidth = itm.width;
+    },
+
     switchSidebar() {
       this.showSideBar = !this.showSideBar;
       if (this.showSideBar) {
@@ -83,10 +94,15 @@ export default {
     },
   },
   created() {
+    window.addEventListener("resize", this.resizeWindow);
     if (localStorage.getItem("token") === null) {
       this.$router.push("/login");
     }
   },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeWindow);
+  },
+
   mounted() {
     axios
       .get("http://localhost:5000/user", {
