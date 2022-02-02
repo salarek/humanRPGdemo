@@ -1,6 +1,52 @@
 <template>
   <div id="landing" class="landing">
-    <div :style="{ width: sidebarWidth }" class="sidebar">dupa</div>
+    <div :style="{ width: sidebarWidth }" class="sidebar">
+      <div style="padding-top: 100px"></div>
+      <table>
+        <tr>
+          <td>
+            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+              >Panel Główny</span
+            >
+          </td>
+          <td class="p-2">
+            <button
+              type="submit"
+              class="btn btn-primary m-2"
+              @click="mode = 'achievments'"
+            >
+              <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"
+                />
+              </svg>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+              >Twoje kategorie</span
+            >
+          </td>
+          <td class="p-2">
+            <button
+              type="submit"
+              class="btn btn-primary m-2"
+              @click="mode = 'categories'"
+            >
+              <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M12 16C13.1 16 14 16.9 14 18S13.1 20 12 20 10 19.1 10 18 10.9 16 12 16M12 4C13.1 4 14 4.9 14 6S13.1 8 12 8 10 7.1 10 6 10.9 4 12 4M6 16C7.1 16 8 16.9 8 18S7.1 20 6 20 4 19.1 4 18 4.9 16 6 16M6 10C7.1 10 8 10.9 8 12S7.1 14 6 14 4 13.1 4 12 4.9 10 6 10M6 4C7.1 4 8 4.9 8 6S7.1 8 6 8 4 7.1 4 6 4.9 4 6 4M18 16C19.1 16 20 16.9 20 18S19.1 20 18 20 16 19.1 16 18 16.9 16 18 16M18 10C19.1 10 20 10.9 20 12S19.1 14 18 14 16 13.1 16 12 16.9 10 18 10M18 4C19.1 4 20 4.9 20 6S19.1 8 18 8 16 7.1 16 6 16.9 4 18 4Z"
+                />
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
     <div class="content">
       <header class="header-bar">
         <button
@@ -14,7 +60,7 @@
             />
           </svg>
         </button>
-        <div style="height: 100%; font-size: 20px; padding: 15px">
+        <div style="height: 100%; font-size: 3vh; padding: 2vh">
           Witaj! {{ name }}
         </div>
         <button
@@ -37,7 +83,12 @@
         <!-- <div style="padding: 12px" class="bg-primary text-white">Human RPG</div> -->
       </header>
       <div class="main-view">
-        <achievments :username="name" :level="level" />
+        <div v-if="mode == 'achievments'">
+          <achievments :username="name" :level="level" />
+        </div>
+        <div v-if="mode == 'categories'">
+          <categories :username="name" :level="level" />
+        </div>
       </div>
     </div>
   </div>
@@ -46,8 +97,9 @@
 <script>
 import axios from "axios";
 import Achievments from "./Achievments.vue";
+import Categories from "./Categories.vue";
 export default {
-  components: { Achievments },
+  components: { Achievments, Categories },
   name: "landing",
   data() {
     return {
@@ -61,6 +113,7 @@ export default {
       items: "",
       activity: 0,
       windowWidth: window.innerWidth,
+      mode: "achievments",
     };
   },
   watch: {
@@ -165,5 +218,8 @@ export default {
   padding: 10px;
   height: 100vh;
   transition: all 0.5s;
+}
+.hiddenspan {
+  display: none;
 }
 </style>
