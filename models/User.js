@@ -3,9 +3,13 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: String,
+  avatar: {
+    data: Buffer,
+    contentType: String,
+  },
   email: {
     unique: true,
-    type: String
+    type: String,
   },
   password: String,
   level: Number,

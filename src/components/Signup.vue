@@ -76,6 +76,19 @@
               </button>
             </div>
           </div>
+          <div class="mb-3 row">
+            <label for="staticAvatar" class="col-sm-2 col-form-label"
+              >Avatar</label
+            >
+            <div class="col-sm-10">
+              <input
+                @change="storeAvatar"
+                type="file"
+                class="form-control"
+                id="staticAvatar"
+              />
+            </div>
+          </div>
           <div class="col-auto">
             <button
               type="submit"
@@ -120,9 +133,14 @@ export default {
       email: "",
       password: "",
       error: "",
+      avatar: null,
     };
   },
   methods: {
+    storeAvatar: function (event) {
+      console.log(event.target.files);
+      this.avatar = event.target.files[0];
+    },
     changePasswordMode(mode) {
       switch (mode) {
         case "password":
@@ -134,12 +152,16 @@ export default {
       }
     },
     signup() {
+      const fd = new FormData();
+      fd.append("image", this.avatar, this.avatar.name);
+      console.log("FD", fd.get("image"));
       let newUser = {
         name: this.name,
         email: this.email,
         password: this.password,
+        avatar: fd,
       };
-      axios.post("http://localhost:5000/signup", newUser).then(
+      axios.post("http://localhost:5000/signup", fd, newUser).then(
         (res) => {
           console.log(res);
           this.error = "";

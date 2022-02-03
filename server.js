@@ -5,11 +5,21 @@ const User = require("./models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 mongoose.connect(
   "mongodb+srv://admin:admin@cluster0.ab0qq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 );
+const Storage = multer.diskStorage({
+  destination: "uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
+const upload = multer({ storage: Storage }).single("testImage");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,27 +27,55 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes
 app.post("/signup", (req, res) => {
-  const newUser = new User({
-    email: req.body.email,
-    name: req.body.name,
-    password: bcrypt.hashSync(req.body.password, 10),
-    level:0,
-    processlevel: 0,
-    categories: '',
-    items: '',
-    activity: 0,
-  });
-  newUser.save((err) => {
+  console.log("KURWY", req.files);
+  upload(req, res, (err) => {
     if (err) {
-      return res.status(400).json({
-        title: "error",
-        error: "email in use",
+      console.log(err);
+    } else {
+      const newUser = new User({
+        email: req.body.email,
+        name: req.body.name,
+        avatar: {
+          data: req.files[0].files,
+          contentType: "image/png",
+        },
+        password: bcrypt.hashSync(req.body.password, 10),
+        level: 0,
+        processlevel: 0,
+        categories: "",
+        items: "",
+        activity: 0,
+      });
+      newUser.save((err) => {
+        if (err) {
+          return res.status(400).json({
+            title: "error",
+            error: err,
+          });
+        }
+        return res.status(200).json({
+          title: "signup success",
+        });
       });
     }
-    return res.status(200).json({
-      title: "signup success",
-    });
   });
+
+  // const newUser = new User({
+  //   email: req.body.email,
+  //   name: req.body.name,
+  //   avatar: {
+  //     data: fs.readFileSync(
+  //       path.join(__dirname + "/uploads/" + req.body.avatar)
+  //     ),
+  //     contentType: "image/png",
+  //   },
+  //   password: bcrypt.hashSync(req.body.password, 10),
+  //   level: 0,
+  //   processlevel: 0,
+  //   categories: "",
+  //   items: "",
+  //   activity: 0,
+  // });
 });
 app.post("/login", (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
@@ -77,11 +115,11 @@ app.get("/user", (req, res) => {
         title: "unauthorized f",
       });
     //token valid
-    User.findOne({_id: decoded.userId}, (err, user)=>{
-      if(err) return console.log(err)
+    User.findOne({ _id: decoded.userId }, (err, user) => {
+      if (err) return console.log(err);
       return res.status(200).json({
-        title: 'user grabbed',
-        user:{
+        title: "user grabbed",
+        user: {
           email: user.email,
           name: user.name,
           level: user.level,
@@ -89,12 +127,12 @@ app.get("/user", (req, res) => {
           categories: user.categories,
           items: user.items,
           activity: user.activity,
-
-        }
-      })
-    })
+        },
+      });
+    });
   });
 });
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, (err) => {
