@@ -4,8 +4,8 @@
     <div class="achiew">
       <div class="profile">
         <img
-          style="width: 100px; height: 100px"
-          src="@/assets/avatar.jpg"
+          style="width: 100px; height: 100px; border-radius: 10px"
+          :src="getImgUrl(avatar)"
           alt=""
         />
         <div>{{ username }}</div>
@@ -34,7 +34,24 @@
 </template>
 <script>
 export default {
-  props: ["username", "level"],
+  props: ["username", "level", "avatar"],
+  data() {
+    return {};
+  },
+  // computed: {
+  //   avatarImg: function () {
+  //     let name = this.avatar[0];
+  //     console.log(name);
+  //     let newName = name.substring(29, name.length);
+  //     return newName;
+  //   },
+  // },
+  methods: {
+    getImgUrl(pet) {
+      var images = require.context("/public/", false, /\.jpg$/);
+      return images("./" + pet);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

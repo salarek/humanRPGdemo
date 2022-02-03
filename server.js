@@ -7,8 +7,8 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-const fs = require("fs");
-const path = require("path");
+// const fs = require("fs");
+// const path = require("path");
 
 mongoose.connect(
   "mongodb+srv://admin:admin@cluster0.ab0qq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
@@ -141,6 +141,7 @@ app.get("/user", (req, res) => {
           categories: user.categories,
           items: user.items,
           activity: user.activity,
+          avatar: user.avatar,
         },
       });
     });

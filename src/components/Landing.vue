@@ -1,6 +1,7 @@
 <template>
   <div id="landing" class="landing">
     <div :style="{ width: sidebarWidth }" class="sidebar">
+      <span class="m-2">MENU</span>
       <div style="padding-top: 100px"></div>
       <table>
         <tr>
@@ -105,7 +106,7 @@
       </header>
       <div class="main-view">
         <div v-if="mode == 'achievments'">
-          <achievments :username="name" :level="level" />
+          <achievments :username="name" :level="level" :avatar="avatarImg" />
         </div>
         <div v-if="mode == 'categories'">
           <categories :username="name" :level="level" />
@@ -140,6 +141,15 @@ export default {
       windowWidth: window.innerWidth,
       mode: "achievments",
     };
+  },
+  computed: {
+    avatarImg: function () {
+      console.log(this.avatar[0]);
+      let name = this.avatar[0];
+      console.log(name);
+      let newName = name.substring(29, name.length);
+      return newName;
+    },
   },
   watch: {
     windowWidth: function () {
@@ -195,6 +205,7 @@ export default {
         this.categories = res.data.user.categories;
         this.items = res.data.user.items;
         this.activity = res.data.user.activity;
+        this.avatar = res.data.user.avatar;
       });
   },
 };
