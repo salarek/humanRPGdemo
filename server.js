@@ -6,58 +6,72 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const path = require("path");
 
 mongoose.connect(
   "mongodb+srv://admin:admin@cluster0.ab0qq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 );
-const Storage = multer.diskStorage({
-  destination: "uploads",
+const DIR = "./public/";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const fileName = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, uuidv4() + "-" + fileName);
   },
 });
-
-const upload = multer({ storage: Storage }).single("testImage");
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("File type not accepted (.png, .jpg, .jpeg)"));
+    }
+  },
+});
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes
-app.post("/signup", (req, res) => {
-  console.log("KURWY", req.files);
-  upload(req, res, (err) => {
+app.post("/signup", upload.array("avatar", 8), (req, res) => {
+  console.log("KURWY", req.body);
+  const reqFiles = [];
+  const url = req.protocol + "://" + req.get("host");
+  for (var i = 0; i < req.files.length; i++) {
+    reqFiles.push(url + "/public/" + req.files[i].filename);
+  }
+  const newUser = new User({
+    email: req.body.email,
+    name: req.body.name,
+    avatar: reqFiles,
+    password: bcrypt.hashSync(req.body.password, 10),
+    level: 0,
+    processlevel: 0,
+    categories: "",
+    items: "",
+    activity: 0,
+  });
+  newUser.save((err) => {
     if (err) {
-      console.log(err);
-    } else {
-      const newUser = new User({
-        email: req.body.email,
-        name: req.body.name,
-        avatar: {
-          data: req.files[0].files,
-          contentType: "image/png",
-        },
-        password: bcrypt.hashSync(req.body.password, 10),
-        level: 0,
-        processlevel: 0,
-        categories: "",
-        items: "",
-        activity: 0,
-      });
-      newUser.save((err) => {
-        if (err) {
-          return res.status(400).json({
-            title: "error",
-            error: err,
-          });
-        }
-        return res.status(200).json({
-          title: "signup success",
-        });
+      return res.status(400).json({
+        title: "error",
+        error: err,
       });
     }
+    return res.status(200).json({
+      title: "signup success",
+    });
   });
 
   // const newUser = new User({

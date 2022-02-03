@@ -18,6 +18,7 @@
                 v-model="name"
                 class="form-control"
                 id="staticName"
+                name="staticName"
               />
             </div>
           </div>
@@ -31,6 +32,7 @@
                 v-model="email"
                 class="form-control"
                 id="staticEmail"
+                name="email"
               />
             </div>
           </div>
@@ -45,6 +47,7 @@
                 v-model="password"
                 class="form-control"
                 id="inputPassword"
+                name="password"
               />
             </div>
             <div class="col-sm-1">
@@ -86,6 +89,7 @@
                 type="file"
                 class="form-control"
                 id="staticAvatar"
+                name="avatar"
               />
             </div>
           </div>
@@ -153,15 +157,16 @@ export default {
     },
     signup() {
       const fd = new FormData();
-      fd.append("image", this.avatar, this.avatar.name);
-      console.log("FD", fd.get("image"));
-      let newUser = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        avatar: fd,
-      };
-      axios.post("http://localhost:5000/signup", fd, newUser).then(
+      fd.append("avatar", this.avatar, this.avatar.name);
+      fd.append("name", this.name);
+      fd.append("email", this.email);
+      fd.append("password", this.password);
+      // let newUser = {
+      //   name: this.name,
+      //   email: this.email,
+      //   password: this.password,
+      // };
+      axios.post("http://localhost:5000/signup", fd).then(
         (res) => {
           console.log(res);
           this.error = "";
