@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const categoriesSchema = new Schema({
   name: String,
   user: String,
-  image: String,
+  icon: String,
   achievements: [
     {
       name: String,

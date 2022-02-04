@@ -2,11 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./models/User");
+const Category = require("./models/Categories");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const CategoriesData = require("./categories/categories");
 // const fs = require("fs");
 // const path = require("path");
 
@@ -73,23 +75,6 @@ app.post("/signup", upload.array("avatar", 8), (req, res) => {
       title: "signup success",
     });
   });
-
-  // const newUser = new User({
-  //   email: req.body.email,
-  //   name: req.body.name,
-  //   avatar: {
-  //     data: fs.readFileSync(
-  //       path.join(__dirname + "/uploads/" + req.body.avatar)
-  //     ),
-  //     contentType: "image/png",
-  //   },
-  //   password: bcrypt.hashSync(req.body.password, 10),
-  //   level: 0,
-  //   processlevel: 0,
-  //   categories: "",
-  //   items: "",
-  //   activity: 0,
-  // });
 });
 app.post("/login", (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
@@ -146,6 +131,9 @@ app.get("/user", (req, res) => {
       });
     });
   });
+});
+app.post("/addcategory", (req, res) => {
+  let name = req.body.name;
 });
 
 const port = process.env.PORT || 5000;
