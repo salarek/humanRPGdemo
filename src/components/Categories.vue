@@ -2,8 +2,8 @@
   <div class="cat">
     <p class="title">Twoje Kategorie</p>
     <div class="achiew">
-      <div class="categories">
-        <p>{{ category }}</p>
+      <div v-for="cat in category" :key="cat" class="categories">
+        <p>{{ cat.name }}</p>
         <button class="btn btn-primary">Dodaj</button>
       </div>
     </div>
@@ -26,7 +26,7 @@ export default {
       })
       .then((res) => {
         console.log(res);
-        this.category = res.data;
+        this.category = res.data.name;
       });
   },
 };

@@ -135,14 +135,25 @@ app.get("/user", (req, res) => {
 app.get("/mycategory", (req, res) => {
   // let user = req.headers.username;
     console.log("ussrr", req.headers.user)
-    Categories.findOne({ user:req.headers.user }, (err, categories) => {
+    // Categories.findOne({ user:req.headers.user }, (err, categories) => {
+    //   if (err) return console.log(err);
+    //   return res.status(200).json({
+    //     title: "user grabbed",
+    //     categories: {
+    //       name: categories.name,
+    //       achievements: categories.achievements,
+    //     },
+    //   });
+    // });
+    Categories.find({ user:req.headers.user }, (err, categories) => {
       if (err) return console.log(err);
+      let dupa = [];
+      for(let d of categories){
+        dupa.push(d)
+      }
       return res.status(200).json({
         title: "user grabbed",
-        categories: {
-          name: categories.name,
-          achievements: categories.achievements,
-        },
+        name: dupa
       });
     });
 
@@ -151,7 +162,7 @@ app.post("/addcategory", (req, res) => {
   let categoryNameFromHtml = req.body.name;
   let username = req.body.username;
   let items = [];
-  Categories.findOne({ user: req.body.username }, (err, user) => {
+  Categories.findOne({ user: req.body.username, name:categoryNameFromHtml }, (err, user) => {
     if (err)
       return res.status(500).json({
         title: "server error",
@@ -166,7 +177,7 @@ app.post("/addcategory", (req, res) => {
     if(!user){
       for(let cat of CategoriesData){
         if(categoryNameFromHtml == cat.name){
-          for(let catname of cat.name ){
+          for(let catname of cat.skills ){
             items.push({
               name: catname,
               video: '',

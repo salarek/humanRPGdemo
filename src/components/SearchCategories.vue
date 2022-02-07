@@ -11,6 +11,12 @@
           Dodaj
         </button>
       </div>
+      <div class="categories">
+        <p>Swing</p>
+        <button class="btn btn-primary" @click="addCategory('swing', username)">
+          Dodaj
+        </button>
+      </div>
     </div>
   </div>
 </template>
