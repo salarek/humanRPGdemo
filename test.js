@@ -1,11 +1,18 @@
 const CategoriesData = [
   {
     name: "kalistenika",
-    skills: ["muscleup", "handstand"],
+    skills: [""],
   },
   {
     name: "notyourbuissness",
-    skills: ["not", "your"],
+    skills: [""],
   },
 ];
-let name = "kalistenika";
+var namer = "kalistenika";
+console.log(CategoriesData[0].name)
+
+for(let cat of CategoriesData){
+  if(namer == cat.name){
+    cat.skills=["dupa","cipa"]
+  }
+}

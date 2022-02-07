@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./models/User");
-const Category = require("./models/Categories");
+const Categories = require("./models/Categories");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -132,8 +132,76 @@ app.get("/user", (req, res) => {
     });
   });
 });
+app.get("/mycategory", (req, res) => {
+  // let user = req.headers.username;
+    console.log("ussrr", req.headers.user)
+    Categories.findOne({ user:req.headers.user }, (err, categories) => {
+      if (err) return console.log(err);
+      return res.status(200).json({
+        title: "user grabbed",
+        categories: {
+          name: categories.name,
+          achievements: categories.achievements,
+        },
+      });
+    });
+
+});
 app.post("/addcategory", (req, res) => {
-  let name = req.body.name;
+  let categoryNameFromHtml = req.body.name;
+  let username = req.body.username;
+  let items = [];
+  Categories.findOne({ user: req.body.username }, (err, user) => {
+    if (err)
+      return res.status(500).json({
+        title: "server error",
+        error: err,
+      });
+    if (user) {
+      return res.status(401).json({
+        title: "category already added",
+        error: "invalid credentials",
+      });
+    }
+    if(!user){
+      for(let cat of CategoriesData){
+        if(categoryNameFromHtml == cat.name){
+          for(let catname of cat.name ){
+            items.push({
+              name: catname,
+              video: '',
+                  done: false,
+                  wip: false,
+                  days: 0,
+            })
+          }
+          
+          const newCategory = new Categories({
+            name: categoryNameFromHtml,
+            user: username,
+            // icon: String,
+            achievements: [
+              items
+            ],
+            globalDays: 0,
+          });
+          newCategory.save((err) => {
+            if (err) {
+              return res.status(400).json({
+                title: "error",
+                error: err,
+              });
+            }
+            return res.status(200).json({
+              title: "category added succesfully",
+            });
+          });
+        }
+      }
+    }
+  });
+  
+
 });
 
 const port = process.env.PORT || 5000;

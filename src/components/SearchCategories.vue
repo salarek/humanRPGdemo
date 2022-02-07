@@ -4,7 +4,10 @@
     <div class="achiew">
       <div class="categories">
         <p>Kalistenika</p>
-        <button class="btn btn-primary" @click="addCategory('kalistenika')">
+        <button
+          class="btn btn-primary"
+          @click="addCategory('kalistenika', username)"
+        >
           Dodaj
         </button>
       </div>
@@ -16,8 +19,8 @@ import axios from "axios";
 export default {
   props: ["username", "level"],
   methods: {
-    addCategory(name) {
-      axios.post("http://localhost:5000/addcategory", name);
+    addCategory(name, username) {
+      axios.post("http://localhost:5000/addcategory", { name, username });
     },
   },
 };

@@ -1,12 +1,12 @@
 const CategoriesData = [
   {
     name: "kalistenika",
-    skills: ["muscleup", "handstand"],
+    skills: ["muscleup", "handstand", "planche", "Lsit"],
   },
   {
-    name: "notyourbuissness",
-    skills: ["not", "your"],
+    name: "swing",
+    skills: ["primary step", "shuffle"],
   },
 ];
 
-export default CategoriesData;
+module.exports = CategoriesData;
