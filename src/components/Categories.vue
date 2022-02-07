@@ -4,7 +4,7 @@
     <div class="achiew">
       <div v-for="cat in category" :key="cat" class="categories">
         <p>{{ cat.name }}</p>
-        <button class="btn btn-primary">Dodaj</button>
+        <button class="btn btn-primary">Dodajj</button>
       </div>
     </div>
   </div>
