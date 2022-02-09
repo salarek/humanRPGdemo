@@ -17,7 +17,7 @@ export default {
   props: ["username", "level"],
   data() {
     return {
-      category: "",
+      category: [],
       user: this.username,
     };
   },
@@ -33,7 +33,12 @@ export default {
   },
   methods: {
     deleteCategory(name) {
-      console.log(name);
+      console.log(this.category);
+      this.category = this.category.filter((x) => {
+        if (x.name != name) return x;
+      });
+
+      console.log(this.category);
       axios
         .delete("http://localhost:5000/mycategory", {
           headers: { name: name, user: this.username },
