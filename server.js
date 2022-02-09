@@ -135,16 +135,6 @@ app.get("/user", (req, res) => {
 app.get("/mycategory", (req, res) => {
   // let user = req.headers.username;
     console.log("ussrr", req.headers.user)
-    // Categories.findOne({ user:req.headers.user }, (err, categories) => {
-    //   if (err) return console.log(err);
-    //   return res.status(200).json({
-    //     title: "user grabbed",
-    //     categories: {
-    //       name: categories.name,
-    //       achievements: categories.achievements,
-    //     },
-    //   });
-    // });
     Categories.find({ user:req.headers.user }, (err, categories) => {
       if (err) return console.log(err);
       let dupa = [];
@@ -156,7 +146,28 @@ app.get("/mycategory", (req, res) => {
         name: dupa
       });
     });
-
+});
+app.delete("/mycategory", (req, res) => {
+  console.log("USUNIETE", req.headers.name, req.headers.user)
+   Categories.findOneAndRemove({name: req.headers.name}, function(err){
+      if(err){
+        console.log(err)
+        return res.status(500).send()
+      }else{
+        return res.status(200).send()
+      }
+   })
+    // Categories.find({ user:req.body.user }, (err, categories) => {
+    //   if (err) return console.log(err);
+    //   let dupa = [];
+    //   for(let d of categories){
+    //     dupa.push(d)
+    //   }
+    //   return res.status(200).json({
+    //     title: "user grabbed",
+    //     name: dupa
+    //   });
+    // });
 });
 app.post("/addcategory", (req, res) => {
   let categoryNameFromHtml = req.body.name;

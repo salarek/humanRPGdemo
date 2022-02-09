@@ -4,7 +4,9 @@
     <div class="achiew">
       <div v-for="cat in category" :key="cat" class="categories">
         <p>{{ cat.name }}</p>
-        <button class="btn btn-primary">Dodajj</button>
+        <button class="btn btn-primary" @click="deleteCategory(cat.name)">
+          usun
+        </button>
       </div>
     </div>
   </div>
@@ -28,6 +30,18 @@ export default {
         console.log(res);
         this.category = res.data.name;
       });
+  },
+  methods: {
+    deleteCategory(name) {
+      console.log(name);
+      axios
+        .delete("http://localhost:5000/mycategory", {
+          headers: { name: name, user: this.username },
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    },
   },
 };
 </script>

@@ -15,4 +15,6 @@ for(let cat of CategoriesData){
   if(namer == cat.name){
     cat.skills=["dupa","cipa"]
   }
+ 
 }
+console.log(CategoriesData)
