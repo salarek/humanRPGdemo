@@ -1,7 +1,7 @@
 <template>
   <div class="cat">
     <p class="title">Twoje Kategorie</p>
-    <div class="achiew">
+    <div v-if="!currentCategory" class="achiew">
       <div v-for="cat in category" :key="cat.index" class="categories">
         <img
           style="width: 10rem; height: 10rem; border-radius: 50%"
@@ -12,7 +12,7 @@
         <table style="width: 100%">
           <tr>
             <td>
-              <button class="btn btn-primary" @click="deleteCategory(cat.name)">
+              <button class="btn btn-primary" @click="chooseCategory(cat)">
                 podgląd
               </button>
             </td>
@@ -25,6 +25,12 @@
         </table>
       </div>
     </div>
+    <div v-if="currentCategory" class="achiew">
+      <button class="btn btn-primary" @click="currentCategory = ''">
+        Powrót
+      </button>
+      {{ currentCategory }}
+    </div>
   </div>
 </template>
 <script>
@@ -33,6 +39,7 @@ export default {
   props: ["username", "level"],
   data() {
     return {
+      currentCategory: "",
       category: [],
       user: this.username,
     };
@@ -48,6 +55,9 @@ export default {
       });
   },
   methods: {
+    chooseCategory(name) {
+      this.currentCategory = name;
+    },
     deleteCategory(name) {
       console.log(this.category);
       this.category = this.category.filter((x) => {
