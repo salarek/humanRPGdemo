@@ -2,11 +2,27 @@
   <div class="cat">
     <p class="title">Twoje Kategorie</p>
     <div class="achiew">
-      <div v-for="cat in category" :key="cat" class="categories">
-        <p>{{ cat.name }}</p>
-        <button class="btn btn-primary" @click="deleteCategory(cat.name)">
-          usun
-        </button>
+      <div v-for="cat in category" :key="cat.index" class="categories">
+        <img
+          style="width: 10rem; height: 10rem; border-radius: 50%"
+          :src="require(`../assets/categoryImages/${cat.name}.png`)"
+          alt=""
+        />
+        <p class="text-center">{{ cat.name }}</p>
+        <table style="width: 100%">
+          <tr>
+            <td>
+              <button class="btn btn-primary" @click="deleteCategory(cat.name)">
+                podgląd
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-primary" @click="deleteCategory(cat.name)">
+                usun
+              </button>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
