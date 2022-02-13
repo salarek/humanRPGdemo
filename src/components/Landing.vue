@@ -222,6 +222,7 @@ export default {
   width: 100vw;
   height: 100vh;
   display: flex;
+  overflow-y: scroll;
 }
 .content {
   position: relative;
@@ -245,9 +246,11 @@ export default {
   padding: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .sidebar {
   // background-color: rgb(0, 26, 255);
+  background-repeat: repeat-y;
   color: white;
   font-size: 1.3rem;
   background-color: $secondary;
