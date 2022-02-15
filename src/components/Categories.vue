@@ -48,6 +48,8 @@
             <button @click="curr.days = curr.days + 1">{{ curr.days }}</button>
           </div>
           <hr />
+          Your video
+          <hr />
           <button style="margin-right: 2px" class="btn btn-primary">
             Zrobione!
           </button>
@@ -122,6 +124,8 @@ export default {
   text-align: center;
 }
 .achievement {
+  // max-height: 100px;
+  contain: content;
   font-size: 1.5rem;
   background-color: white;
   padding: 20px;
