@@ -1,35 +1,65 @@
 <template>
   <div class="cat">
-    <p class="title">Twoje Kategorie</p>
-    <div v-if="!currentCategory" class="achiew">
-      <div v-for="cat in category" :key="cat.index" class="categories">
-        <img
-          style="width: 10rem; height: 10rem; border-radius: 50%"
-          :src="require(`../assets/categoryImages/${cat.name}.png`)"
-          alt=""
-        />
-        <p class="text-center">{{ cat.name }}</p>
-        <table style="width: 100%">
-          <tr>
-            <td>
-              <button class="btn btn-primary" @click="chooseCategory(cat)">
-                podgląd
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-primary" @click="deleteCategory(cat.name)">
-                usun
-              </button>
-            </td>
-          </tr>
-        </table>
+    <div v-if="!currentCategory">
+      <p class="title">Twoje Kategorie</p>
+      <div class="achiew">
+        <div v-for="cat in category" :key="cat.index" class="categories">
+          <img
+            style="width: 10rem; height: 10rem; border-radius: 50%"
+            :src="require(`../assets/categoryImages/${cat.name}.png`)"
+            alt=""
+          />
+          <p class="text-center">{{ cat.name }}</p>
+          <table style="width: 100%">
+            <tr>
+              <td>
+                <button class="btn btn-primary" @click="chooseCategory(cat)">
+                  podgląd
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  @click="deleteCategory(cat.name)"
+                >
+                  usun
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div v-if="currentCategory" class="achiew">
+    <div v-if="currentCategory">
       <button class="btn btn-primary" @click="currentCategory = ''">
         Powrót
       </button>
-      {{ currentCategory }}
+      {{ currentCategory.name }}
+      <div class="achiew">
+        <div
+          v-for="curr in currentCategory.achievements[0]"
+          :key="curr.index"
+          class="achievement"
+        >
+          {{ curr.name }}
+          <hr />
+          <div>
+            Dni:
+            <button @click="curr.days = curr.days + 1">{{ curr.days }}</button>
+          </div>
+          <hr />
+          <button style="margin-right: 2px" class="btn btn-primary">
+            Zrobione!
+          </button>
+          <button class="btn btn-primary" @click="curr.days = 0">Reset</button>
+
+          <!-- <div v-for="cur in curr" :key="cur.index">
+          {{ cur.name }}
+        </div> -->
+        </div>
+
+        {{ currentCategory }}
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +84,11 @@ export default {
         this.category = res.data.name;
       });
   },
+  // computed: {
+  //   currentCategoryAchievement: function () {
+  //     return this.currentCategory.achievements[0];
+  //   },
+  // },
   methods: {
     chooseCategory(name) {
       this.currentCategory = name;
@@ -77,8 +112,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.btn-primary {
+  background-color: #5628c0;
+}
+.btn-primary:hover {
+  background-color: #704ec0;
+}
 .title {
   text-align: center;
+}
+.achievement {
+  font-size: 1.5rem;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 12px;
 }
 .achiew {
   display: flex;
