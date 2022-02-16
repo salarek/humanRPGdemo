@@ -316,10 +316,10 @@ export default {
 }
 @keyframes move {
   0% {
-    transform: translateY(200px);
+    transform: translateY(60%);
   }
   100% {
-    transform: translateY(-600px);
+    transform: translateY(-100%);
   }
 }
 </style>
