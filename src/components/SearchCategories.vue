@@ -1,6 +1,7 @@
 <template>
   <div class="search-categories">
     <p class="title">Kategorie</p>
+    <hr />
     <div class="achiew">
       <div
         :style="

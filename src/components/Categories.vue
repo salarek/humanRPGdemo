@@ -2,6 +2,7 @@
   <div class="cat">
     <div v-if="!currentCategory">
       <p class="title">Twoje Kategorie</p>
+      <hr />
       <div class="achiew">
         <div v-for="cat in category" :key="cat.index" class="categories">
           <img

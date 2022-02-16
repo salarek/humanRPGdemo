@@ -72,7 +72,13 @@
     <div class="content">
       <header class="header-bar">
         <button
-          style="background-color: transparent; border: none"
+          style="
+            background-color: transparent;
+            position: absolute;
+            height: 10%;
+            left: 0px;
+            border: none;
+          "
           @click="switchSidebar"
         >
           <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -82,9 +88,8 @@
             />
           </svg>
         </button>
-        <div style="height: 100%; font-size: 3vh; padding: 2vh">
-          Witaj! {{ name }}
-        </div>
+
+        <img src="@/assets/logo2.png" alt="" />
         <button
           style="
             background-color: transparent;
@@ -234,6 +239,7 @@ export default {
   height: 10vh;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   border-width: 1px;
   border-color: green;
   border-bottom-style: solid;
@@ -241,7 +247,7 @@ export default {
 .main-view {
   font-family: "Cairo", sans-serif;
   font-size: 2rem;
-  position: absolute;
+  position: relative;
   width: 100%;
   padding: 10px;
   display: flex;
