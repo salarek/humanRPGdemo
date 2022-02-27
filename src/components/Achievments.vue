@@ -1,6 +1,5 @@
 <template>
   <div class="achiewements">
-    <div class="checkerboard"></div>
     <p class="title">Twój profil</p>
     <hr />
 
@@ -14,7 +13,63 @@
         <div>{{ username }}</div>
         <div>Level: {{ level }}</div>
       </div>
-
+      <div class="categories">
+        <p>Kategorie</p>
+        <p>
+          1
+          <img
+            style="margin-bottom: 6px; width: 25px; height: 25px"
+            src="@/assets/star.png"
+            alt=""
+          />
+          kalistenika
+        </p>
+        <p>
+          1
+          <img
+            style="margin-bottom: 6px; width: 25px; height: 25px"
+            src="@/assets/star.png"
+            alt=""
+          />
+          kalistenika
+        </p>
+        <p>
+          1
+          <img
+            style="margin-bottom: 6px; width: 25px; height: 25px"
+            src="@/assets/star.png"
+            alt=""
+          />
+          kalistenika
+        </p>
+        <p>
+          1
+          <img
+            style="margin-bottom: 6px; width: 25px; height: 25px"
+            src="@/assets/star.png"
+            alt=""
+          />
+          kalistenika
+        </p>
+        <p>
+          1
+          <img
+            style="margin-bottom: 6px; width: 25px; height: 25px"
+            src="@/assets/star.png"
+            alt=""
+          />
+          kalistenika
+        </p>
+        <p>
+          1
+          <img
+            style="margin-bottom: 6px; width: 25px; height: 25px"
+            src="@/assets/star.png"
+            alt=""
+          />
+          kalistenika
+        </p>
+      </div>
       <div class="items">
         <img
           style="width: 25rem; height: 15rem"
@@ -24,16 +79,8 @@
         <p style="color: yellow" class="title">Gablotka pucharów</p>
       </div>
     </div>
-    <div class="categories">
-      <p>Kategorie</p>
-      1
-      <img
-        style="margin-bottom: 6px; width: 25px; height: 25px"
-        src="@/assets/star.png"
-        alt=""
-      />
-      kalistenika
-    </div>
+
+    <!-- <div class="checkerboard"></div> -->
   </div>
 </template>
 <script>
@@ -64,28 +111,24 @@ $columns: 7;
 $rows: 7;
 $cells: $columns * $rows;
 
-@for $i from 1 through $cells {
-  .checkerboard > div:nth-child(#{$i}) {
-    animation-delay: (random($cells) / $columns) + s;
-  }
-}
-
 .checkerboard {
+  z-index: 0;
   position: fixed;
+  top: 0px;
   background-image: url("https://assets.codepen.io/9632/walkrus-gradient.jpg");
   opacity: 0.2;
   background-size: cover;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(7, 1fr);
   height: 100vh;
   width: 100%;
 }
 
 .achiewements {
+  overflow-y: scroll;
   position: absolute;
   left: 0%;
+  top: 0%;
   width: 100%;
+  height: 90vh;
 }
 .title {
   text-align: center;
@@ -105,7 +148,6 @@ $cells: $columns * $rows;
   z-index: 200;
 }
 .categories {
-  position: absolute;
   background-color: white;
   padding: 20px;
   border-radius: 12px;

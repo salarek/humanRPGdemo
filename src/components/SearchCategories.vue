@@ -126,6 +126,14 @@ export default {
 .title {
   text-align: center;
 }
+.search-categories {
+  overflow-y: scroll;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 90vh;
+}
 .achiew {
   display: flex;
   flex-direction: row;
