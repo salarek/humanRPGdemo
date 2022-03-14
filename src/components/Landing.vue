@@ -3,7 +3,7 @@
     <div :style="{ width: sidebarWidth }" class="sidebar">
       <span class="m-1">MENU</span>
       <div style="padding-top: 100px"></div>
-      <table style="width: 100%; margin: 0px; padding: 0px">
+      <table :style="{ width: '100%', margin: '0px', padding: '0px' }">
         <tr>
           <td class="p-1">
             <button
@@ -323,6 +323,7 @@ tr:hover {
 .hiddenspan {
   white-space: pre;
   transition: all 0.5s;
+  display: none;
   opacity: 0;
 }
 .showspan {
