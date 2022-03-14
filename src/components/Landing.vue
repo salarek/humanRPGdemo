@@ -1,19 +1,14 @@
 <template>
   <div id="landing" class="landing">
     <div :style="{ width: sidebarWidth }" class="sidebar">
-      <span class="m-2">MENU</span>
+      <span class="m-1">MENU</span>
       <div style="padding-top: 100px"></div>
-      <table>
+      <table style="width: 100%; margin: 0px; padding: 0px">
         <tr>
-          <td>
-            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
-              >Panel Główny</span
-            >
-          </td>
-          <td class="p-2">
+          <td class="p-1">
             <button
               type="submit"
-              class="btn btn-primary m-2"
+              class="btn btn-primary m-1"
               @click="mode = 'achievments'"
             >
               <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -24,17 +19,17 @@
               </svg>
             </button>
           </td>
-        </tr>
-        <tr>
           <td>
             <span :class="{ hiddenspan: sidebarWidth == '100px' }"
-              >Twoje kategorie</span
+              >Panel Główny</span
             >
           </td>
-          <td class="p-2">
+        </tr>
+        <tr>
+          <td class="p-1">
             <button
               type="submit"
-              class="btn btn-primary m-2"
+              class="btn btn-primary m-1"
               @click="mode = 'categories'"
             >
               <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -45,17 +40,17 @@
               </svg>
             </button>
           </td>
-        </tr>
-        <tr>
           <td>
             <span :class="{ hiddenspan: sidebarWidth == '100px' }"
-              >Szukaj kategorii</span
+              >Twoje kategorie</span
             >
           </td>
-          <td class="p-2">
+        </tr>
+        <tr>
+          <td class="p-1">
             <button
               type="submit"
-              class="btn btn-primary m-2"
+              class="btn btn-primary m-1"
               @click="mode = 'search-categories'"
             >
               <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -66,17 +61,17 @@
               </svg>
             </button>
           </td>
-        </tr>
-        <tr>
           <td>
             <span :class="{ hiddenspan: sidebarWidth == '100px' }"
-              >Plan Zajęć</span
+              >Szukaj kategorii</span
             >
           </td>
-          <td class="p-2">
+        </tr>
+        <tr>
+          <td class="p-1">
             <button
               type="submit"
-              class="btn btn-primary m-2"
+              class="btn btn-primary m-1"
               @click="mode = 'plan'"
             >
               <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -87,8 +82,14 @@
               </svg>
             </button>
           </td>
+          <td>
+            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+              >Plan Zajęć</span
+            >
+          </td>
         </tr>
       </table>
+      <hr />
     </div>
     <div class="content">
       <header class="header-bar">
@@ -252,6 +253,12 @@ export default {
   width: 100vw;
   height: 100vh;
   display: flex;
+}
+tr {
+  font-size: 1rem;
+}
+tr:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 .content {
   position: relative;
