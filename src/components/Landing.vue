@@ -20,7 +20,11 @@
             </button>
           </td>
           <td>
-            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+            <span
+              :class="{
+                hiddenspan: sidebarWidth == '100px',
+                showspan: sidebarWidth > '100px',
+              }"
               >Panel Główny</span
             >
           </td>
@@ -41,7 +45,11 @@
             </button>
           </td>
           <td>
-            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+            <span
+              :class="{
+                hiddenspan: sidebarWidth == '100px',
+                showspan: sidebarWidth > '100px',
+              }"
               >Twoje kategorie</span
             >
           </td>
@@ -62,7 +70,11 @@
             </button>
           </td>
           <td>
-            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+            <span
+              :class="{
+                hiddenspan: sidebarWidth == '100px',
+                showspan: sidebarWidth > '100px',
+              }"
               >Szukaj kategorii</span
             >
           </td>
@@ -83,7 +95,11 @@
             </button>
           </td>
           <td>
-            <span :class="{ hiddenspan: sidebarWidth == '100px' }"
+            <span
+              :class="{
+                hiddenspan: sidebarWidth == '100px',
+                showspan: sidebarWidth > '100px',
+              }"
               >Plan Zajęć</span
             >
           </td>
@@ -245,7 +261,16 @@ export default {
 <style lang="scss" scoped>
 @import "@/scss/variables";
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400&display=swap");
-
+.btn-primary {
+  background-color: $third;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: $third_black;
+}
+.btn-primary:focus {
+  background-color: $primary;
+}
 .landing {
   font-family: "Cairo", sans-serif;
   position: absolute;
@@ -265,7 +290,7 @@ tr:hover {
   width: 100%;
 }
 .header-bar {
-  background-color: rgb(59, 175, 113);
+  background-color: $third;
   width: 100%;
   height: 10vh;
   display: flex;
@@ -296,6 +321,13 @@ tr:hover {
   transition: all 0.5s;
 }
 .hiddenspan {
-  display: none;
+  white-space: pre;
+  transition: all 0.5s;
+  opacity: 0;
+}
+.showspan {
+  white-space: pre;
+  transition: all 0.5s;
+  opacity: 1;
 }
 </style>

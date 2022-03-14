@@ -158,11 +158,16 @@ export default {
 <style lang="scss" scoped>
 @import "@/scss/variables";
 .btn-primary {
-  background-color: #5628c0;
+  background-color: $third;
+  border: none;
 }
 .btn-primary:hover {
-  background-color: #704ec0;
+  background-color: $third_black;
 }
+.btn-primary:focus {
+  background-color: $primary;
+}
+
 .login {
   font-family: "Cairo", sans-serif;
   position: relative;

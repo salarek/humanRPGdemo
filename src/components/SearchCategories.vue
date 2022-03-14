@@ -123,6 +123,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/scss/variables";
+.btn-primary {
+  background-color: $third;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: $third_black;
+}
+.btn-primary:focus {
+  background-color: $primary;
+}
 .title {
   text-align: center;
 }
