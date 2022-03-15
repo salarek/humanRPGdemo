@@ -1,7 +1,6 @@
 <template>
   <div class="achiewements">
     <p class="title">Twój profil</p>
-    <hr />
 
     <div class="achiew">
       <div class="profile">
