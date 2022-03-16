@@ -1,26 +1,8 @@
 <template>
   <div id="landing" class="landing">
     <header class="header-bar">
-      <button
-        style="
-          background-color: transparent;
-          position: absolute;
-          height: 8%;
-          left: 0px;
-          border: none;
-        "
-        @click="switchSidebar"
-      >
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path
-            fill="white"
-            d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-          />
-        </svg>
-      </button>
-
       <img
-        style="margin-left: 5%; height: 4vh"
+        style="margin-left: 2%; height: 4vh"
         src="@/assets/logo2.png"
         alt=""
       />
@@ -31,6 +13,14 @@
         type="text"
         placeholder="Szukaj"
       />
+      <div v-if="toggleButtonVisibility" v-b-toggle.sidebar-no-header>
+        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+          <path
+            fill="white"
+            d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
+          />
+        </svg>
+      </div>
       <button
         style="
           background-color: transparent;
@@ -51,114 +41,132 @@
       <!-- <div style="padding: 12px" class="bg-primary text-white">Human RPG</div> -->
     </header>
     <div class="main-body">
-      <div :style="{ width: sidebarWidth }" class="sidebar">
-        <!-- <span class="m-1">MENU</span> -->
-        <div style="padding-top: 100px"></div>
-        <table :style="{ width: '100%', margin: '0px', padding: '0px' }">
-          <tr>
-            <td class="p-1">
-              <button
-                type="submit"
-                class="btn btn-primary m-1"
-                @click="mode = 'achievments'"
-              >
-                <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"
-                  />
-                </svg>
-              </button>
-            </td>
-            <td>
-              <span
-                :class="{
-                  hiddenspan: sidebarWidth == '100px',
-                  showspan: sidebarWidth > '100px',
-                }"
-                >Panel Główny</span
-              >
-            </td>
-          </tr>
-          <tr>
-            <td class="p-1">
-              <button
-                type="submit"
-                class="btn btn-primary m-1"
-                @click="mode = 'categories'"
-              >
-                <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M12 16C13.1 16 14 16.9 14 18S13.1 20 12 20 10 19.1 10 18 10.9 16 12 16M12 4C13.1 4 14 4.9 14 6S13.1 8 12 8 10 7.1 10 6 10.9 4 12 4M6 16C7.1 16 8 16.9 8 18S7.1 20 6 20 4 19.1 4 18 4.9 16 6 16M6 10C7.1 10 8 10.9 8 12S7.1 14 6 14 4 13.1 4 12 4.9 10 6 10M6 4C7.1 4 8 4.9 8 6S7.1 8 6 8 4 7.1 4 6 4.9 4 6 4M18 16C19.1 16 20 16.9 20 18S19.1 20 18 20 16 19.1 16 18 16.9 16 18 16M18 10C19.1 10 20 10.9 20 12S19.1 14 18 14 16 13.1 16 12 16.9 10 18 10M18 4C19.1 4 20 4.9 20 6S19.1 8 18 8 16 7.1 16 6 16.9 4 18 4Z"
-                  />
-                </svg>
-              </button>
-            </td>
-            <td>
-              <span
-                :class="{
-                  hiddenspan: sidebarWidth == '100px',
-                  showspan: sidebarWidth > '100px',
-                }"
-                >Twoje kategorie</span
-              >
-            </td>
-          </tr>
-          <tr>
-            <td class="p-1">
-              <button
-                type="submit"
-                class="btn btn-primary m-1"
-                @click="mode = 'search-categories'"
-              >
-                <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M16 12C16 10.9 16.9 10 18 10S20 10.9 20 12 19.1 14 18 14 16 13.1 16 12M10 12C10 10.9 10.9 10 12 10S14 10.9 14 12 13.1 14 12 14 10 13.1 10 12M4 12C4 10.9 4.9 10 6 10S8 10.9 8 12 7.1 14 6 14 4 13.1 4 12M13 18C13 16.9 13.9 16 15 16S17 16.9 17 18 16.1 20 15 20 13 19.1 13 18M7 18C7 16.9 7.9 16 9 16S11 16.9 11 18 10.1 20 9 20 7 19.1 7 18M13 6C13 4.9 13.9 4 15 4S17 4.9 17 6 16.1 8 15 8 13 7.1 13 6M7 6C7 4.9 7.9 4 9 4S11 4.9 11 6 10.1 8 9 8 7 7.1 7 6"
-                  />
-                </svg>
-              </button>
-            </td>
-            <td>
-              <span
-                :class="{
-                  hiddenspan: sidebarWidth == '100px',
-                  showspan: sidebarWidth > '100px',
-                }"
-                >Szukaj kategorii</span
-              >
-            </td>
-          </tr>
-          <tr>
-            <td class="p-1">
-              <button
-                type="submit"
-                class="btn btn-primary m-1"
-                @click="mode = 'plan'"
-              >
-                <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M16 12C16 10.9 16.9 10 18 10S20 10.9 20 12 19.1 14 18 14 16 13.1 16 12M10 12C10 10.9 10.9 10 12 10S14 10.9 14 12 13.1 14 12 14 10 13.1 10 12M4 12C4 10.9 4.9 10 6 10S8 10.9 8 12 7.1 14 6 14 4 13.1 4 12M13 18C13 16.9 13.9 16 15 16S17 16.9 17 18 16.1 20 15 20 13 19.1 13 18M7 18C7 16.9 7.9 16 9 16S11 16.9 11 18 10.1 20 9 20 7 19.1 7 18M13 6C13 4.9 13.9 4 15 4S17 4.9 17 6 16.1 8 15 8 13 7.1 13 6M7 6C7 4.9 7.9 4 9 4S11 4.9 11 6 10.1 8 9 8 7 7.1 7 6"
-                  />
-                </svg>
-              </button>
-            </td>
-            <td>
-              <span
-                :class="{
-                  hiddenspan: sidebarWidth == '100px',
-                  showspan: sidebarWidth > '100px',
-                }"
-                >Plan Zajęć</span
-              >
-            </td>
-          </tr>
-        </table>
-        <hr />
+      <div>
+        <div class="sidebar">
+          <b-sidebar
+            class="bsidebar"
+            id="sidebar-no-header"
+            no-header
+            shadow
+            v-model="visible"
+            width="14rem"
+          >
+            <div class="sidebar">
+              <table :style="{ width: '100%', margin: '0px', padding: '0px' }">
+                <tr>
+                  <td class="p-1">
+                    <button
+                      type="submit"
+                      class="btn btn-primary m-1"
+                      @click="
+                        (mode = 'achievments'),
+                          toggleButtonVisibility
+                            ? (visible = false)
+                            : (visible = true)
+                      "
+                    >
+                      <svg
+                        style="width: 24px; height: 24px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td>
+                    <span>Panel Główny</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-1">
+                    <button
+                      type="submit"
+                      class="btn btn-primary m-1"
+                      @click="
+                        (mode = 'categories'),
+                          toggleButtonVisibility
+                            ? (visible = false)
+                            : (visible = true)
+                      "
+                    >
+                      <svg
+                        style="width: 24px; height: 24px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12 16C13.1 16 14 16.9 14 18S13.1 20 12 20 10 19.1 10 18 10.9 16 12 16M12 4C13.1 4 14 4.9 14 6S13.1 8 12 8 10 7.1 10 6 10.9 4 12 4M6 16C7.1 16 8 16.9 8 18S7.1 20 6 20 4 19.1 4 18 4.9 16 6 16M6 10C7.1 10 8 10.9 8 12S7.1 14 6 14 4 13.1 4 12 4.9 10 6 10M6 4C7.1 4 8 4.9 8 6S7.1 8 6 8 4 7.1 4 6 4.9 4 6 4M18 16C19.1 16 20 16.9 20 18S19.1 20 18 20 16 19.1 16 18 16.9 16 18 16M18 10C19.1 10 20 10.9 20 12S19.1 14 18 14 16 13.1 16 12 16.9 10 18 10M18 4C19.1 4 20 4.9 20 6S19.1 8 18 8 16 7.1 16 6 16.9 4 18 4Z"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td>
+                    <span>Twoje kategorie</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-1">
+                    <button
+                      type="submit"
+                      class="btn btn-primary m-1"
+                      @click="
+                        (mode = 'search-categories'),
+                          toggleButtonVisibility
+                            ? (visible = false)
+                            : (visible = true)
+                      "
+                    >
+                      <svg
+                        style="width: 24px; height: 24px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M16 12C16 10.9 16.9 10 18 10S20 10.9 20 12 19.1 14 18 14 16 13.1 16 12M10 12C10 10.9 10.9 10 12 10S14 10.9 14 12 13.1 14 12 14 10 13.1 10 12M4 12C4 10.9 4.9 10 6 10S8 10.9 8 12 7.1 14 6 14 4 13.1 4 12M13 18C13 16.9 13.9 16 15 16S17 16.9 17 18 16.1 20 15 20 13 19.1 13 18M7 18C7 16.9 7.9 16 9 16S11 16.9 11 18 10.1 20 9 20 7 19.1 7 18M13 6C13 4.9 13.9 4 15 4S17 4.9 17 6 16.1 8 15 8 13 7.1 13 6M7 6C7 4.9 7.9 4 9 4S11 4.9 11 6 10.1 8 9 8 7 7.1 7 6"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td>
+                    <span>Szukaj kategorii</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-1">
+                    <button
+                      type="submit"
+                      class="btn btn-primary m-1"
+                      @click="
+                        (mode = 'plan'),
+                          toggleButtonVisibility
+                            ? (visible = false)
+                            : (visible = true)
+                      "
+                    >
+                      <svg
+                        style="width: 24px; height: 24px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M16 12C16 10.9 16.9 10 18 10S20 10.9 20 12 19.1 14 18 14 16 13.1 16 12M10 12C10 10.9 10.9 10 12 10S14 10.9 14 12 13.1 14 12 14 10 13.1 10 12M4 12C4 10.9 4.9 10 6 10S8 10.9 8 12 7.1 14 6 14 4 13.1 4 12M13 18C13 16.9 13.9 16 15 16S17 16.9 17 18 16.1 20 15 20 13 19.1 13 18M7 18C7 16.9 7.9 16 9 16S11 16.9 11 18 10.1 20 9 20 7 19.1 7 18M13 6C13 4.9 13.9 4 15 4S17 4.9 17 6 16.1 8 15 8 13 7.1 13 6M7 6C7 4.9 7.9 4 9 4S11 4.9 11 6 10.1 8 9 8 7 7.1 7 6"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td>
+                    <span>Plan Zajęć</span>
+                  </td>
+                </tr>
+              </table>
+              <hr />
+            </div>
+          </b-sidebar>
+        </div>
       </div>
-
       <div class="content">
         <div class="main-view">
           <div v-if="mode == 'achievments'">
@@ -190,14 +198,14 @@ export default {
   name: "landing",
   data() {
     return {
-      sidebarWidth: "300px",
-      showSideBar: true,
+      toggleButtonVisibility: false,
       name: "",
       email: "",
       level: 0,
       processlevel: 0,
       categories: "",
       items: "",
+      visible: true,
       activity: 0,
       windowWidth: window.innerWidth,
       mode: "achievments",
@@ -217,9 +225,11 @@ export default {
       console.log("XDDDDD");
       console.log(window.innerWidth);
       if (window.innerWidth < window.innerHeight) {
-        this.sidebarWidth = "100px";
+        this.toggleButtonVisibility = true;
+        this.visible = false;
       } else {
-        this.sidebarWidth = "300px";
+        this.toggleButtonVisibility = false;
+        this.visible = true;
       }
     },
   },
@@ -229,14 +239,6 @@ export default {
       this.windowWidth = itm.width;
     },
 
-    switchSidebar() {
-      this.showSideBar = !this.showSideBar;
-      if (this.showSideBar) {
-        this.sidebarWidth = "300px";
-      } else {
-        this.sidebarWidth = "100px";
-      }
-    },
     logout() {
       localStorage.clear();
       this.$router.push("/login");
@@ -284,6 +286,9 @@ export default {
 }
 .btn-primary:focus {
   background-color: $third_black;
+}
+.bsidebar::v-deep .b-sidebar {
+  top: 8%;
 }
 .landing {
   font-family: "Cairo", sans-serif;
