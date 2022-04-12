@@ -1,0 +1,21 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: "human-rpg"
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./app:/home/app
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: "server"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/home/server
+      - /home/server/node_modules
