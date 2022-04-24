@@ -1,8 +1,9 @@
 FROM node:fermium-buster-slim
 
-WORKDIR /home/app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY yarn.lock ./
 # COPY yarn.lock ./
 
 RUN yarn

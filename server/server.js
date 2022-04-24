@@ -134,96 +134,95 @@ app.get("/user", (req, res) => {
 });
 app.get("/mycategory", (req, res) => {
   // let user = req.headers.username;
-    console.log("ussrr", req.headers.user)
-    Categories.find({ user:req.headers.user }, (err, categories) => {
-      if (err) return console.log(err);
-      let dupa = [];
-      for(let d of categories){
-        dupa.push(d)
-      }
-      return res.status(200).json({
-        title: "user grabbed",
-        name: dupa
-      });
+  console.log("ussrr", req.headers.user);
+  Categories.find({ user: req.headers.user }, (err, categories) => {
+    if (err) return console.log(err);
+    let dupa = [];
+    for (let d of categories) {
+      dupa.push(d);
+    }
+    return res.status(200).json({
+      title: "user grabbed",
+      name: dupa,
     });
+  });
 });
 app.delete("/mycategory", (req, res) => {
-  console.log("USUNIETE", req.headers.name, req.headers.user)
-   Categories.findOneAndRemove({name: req.headers.name}, function(err){
-      if(err){
-        console.log(err)
-        return res.status(500).send()
-      }else{
-        return res.status(200).send()
-      }
-   })
-    // Categories.find({ user:req.body.user }, (err, categories) => {
-    //   if (err) return console.log(err);
-    //   let dupa = [];
-    //   for(let d of categories){
-    //     dupa.push(d)
-    //   }
-    //   return res.status(200).json({
-    //     title: "user grabbed",
-    //     name: dupa
-    //   });
-    // });
+  console.log("USUNIETE", req.headers.name, req.headers.user);
+  Categories.findOneAndRemove({ name: req.headers.name }, function (err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send();
+    } else {
+      return res.status(200).send();
+    }
+  });
+  // Categories.find({ user:req.body.user }, (err, categories) => {
+  //   if (err) return console.log(err);
+  //   let dupa = [];
+  //   for(let d of categories){
+  //     dupa.push(d)
+  //   }
+  //   return res.status(200).json({
+  //     title: "user grabbed",
+  //     name: dupa
+  //   });
+  // });
 });
 app.post("/addcategory", (req, res) => {
   let categoryNameFromHtml = req.body.name;
   let username = req.body.username;
   let items = [];
-  Categories.findOne({ user: req.body.username, name:categoryNameFromHtml }, (err, user) => {
-    if (err)
-      return res.status(500).json({
-        title: "server error",
-        error: err,
-      });
-    if (user) {
-      return res.status(401).json({
-        title: "category already added",
-        error: "invalid credentials",
-      });
-    }
-    if(!user){
-      for(let cat of CategoriesData){
-        if(categoryNameFromHtml == cat.name){
-          for(let catname of cat.skills ){
-            items.push({
-              name: catname,
-              video: '',
-                  done: false,
-                  wip: false,
-                  days: 0,
-            })
-          }
-          
-          const newCategory = new Categories({
-            name: categoryNameFromHtml,
-            user: username,
-            // icon: String,
-            achievements: [
-              items
-            ],
-            globalDays: 0,
-          });
-          newCategory.save((err) => {
-            if (err) {
-              return res.status(400).json({
-                title: "error",
-                error: err,
+  Categories.findOne(
+    { user: req.body.username, name: categoryNameFromHtml },
+    (err, user) => {
+      if (err)
+        return res.status(500).json({
+          title: "server error",
+          error: err,
+        });
+      if (user) {
+        return res.status(401).json({
+          title: "category already added",
+          error: "invalid credentials",
+        });
+      }
+      if (!user) {
+        for (let cat of CategoriesData) {
+          if (categoryNameFromHtml == cat.name) {
+            for (let catname of cat.skills) {
+              items.push({
+                name: catname,
+                video: "",
+                done: false,
+                wip: false,
+                days: 0,
               });
             }
-            return res.status(200).json({
-              title: "category added succesfully",
+
+            const newCategory = new Categories({
+              name: categoryNameFromHtml,
+              user: username,
+              // icon: String,
+              achievements: [items],
+              globalDays: 0,
             });
-          });
+            newCategory.save((err) => {
+              if (err) {
+                return res.status(400).json({
+                  title: "error",
+                  error: err,
+                });
+              }
+              return res.status(200).json({
+                title: "category added succesfully",
+              });
+            });
+          }
         }
       }
     }
-  });
-  
-
+  );
 });
 
 const port = process.env.PORT || 5000;
